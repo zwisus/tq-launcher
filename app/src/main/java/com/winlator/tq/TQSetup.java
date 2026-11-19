@@ -32,7 +32,7 @@ public final class TQSetup {
     private static final String DESKTOP_TEMPLATE =
             "[Desktop Entry]\n" +
             "Name=%s\n" +
-            "Exec=wine start.exe D:\\TQ.exe\n" +
+            "Exec=wine start.exe D:/TQ.exe\n" +
             "StartupWMClass=TQ.exe\n" +
             "\n" +
             "[Extra Data]\n" +
@@ -185,16 +185,14 @@ public final class TQSetup {
 
         String fileName = dxvk ? SHORTCUT_DXVK : SHORTCUT_PRIMARY;
         File file = new File(desktopDir, fileName);
-        if (!file.isFile()) {
-            String extras = dxvk
-                    ? "graphicsDriver=vortek,zink\ndxwrapper=dxvk\n" +
-                      "envVars=DXVK_HUD=0 MESA_EXTENSION_MAX_YEAR=2003 WINEESYNC=1\n" +
-                      "box64Preset=STABILITY\n"
-                    : "envVars=MESA_EXTENSION_MAX_YEAR=2003 WINEESYNC=1\n" +
-                      "box64Preset=PERFORMANCE\n";
-            FileUtils.writeString(file, String.format(DESKTOP_TEMPLATE,
-                    dxvk ? "Titan Quest AE (DXVK)" : "Titan Quest AE", extras));
-        }
+        String extras = dxvk
+                ? "graphicsDriver=vortek,zink\ndxwrapper=dxvk\n" +
+                  "envVars=DXVK_HUD=0 MESA_EXTENSION_MAX_YEAR=2003 WINEESYNC=1\n" +
+                  "box64Preset=STABILITY\n"
+                : "envVars=MESA_EXTENSION_MAX_YEAR=2003 WINEESYNC=1\n" +
+                  "box64Preset=PERFORMANCE\n";
+        FileUtils.writeString(file, String.format(DESKTOP_TEMPLATE,
+                dxvk ? "Titan Quest AE (DXVK)" : "Titan Quest AE", extras));
         return new Shortcut(container, file);
     }
 
